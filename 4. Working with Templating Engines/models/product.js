@@ -1,5 +1,3 @@
-const products = [];
-
 const fs = require("fs");
 const path = require("path");
 
@@ -19,8 +17,11 @@ const getProductsFromFile = (callback) => {
 };
 
 module.exports = class Product {
-  constructor(_title) {
-    this.title = _title;
+  constructor(title, imageUrl, price, description) {
+    this.title = title;
+    this.imageUrl = imageUrl;
+    this.description = description;
+    this.price = price;
   }
 
   save() {

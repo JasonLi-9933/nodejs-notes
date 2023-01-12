@@ -2,7 +2,7 @@ const Product = require("../models/product");
 
 exports.getAddProductPage = (req, res) => {
   // res.sendFile(path.join(__dirname, "../views/add-product.html"));
-  res.render("add-product", {
+  res.render("admin/add-product", {
     pageTitle: "Add Product",
     path: "/admin/add-product",
     formsCSS: true,
@@ -14,18 +14,21 @@ exports.getAddProductPage = (req, res) => {
 // const products = [];
 exports.postAddProduct = (req, res) => {
   console.log(req.body);
-  const newProduct = new Product(req.body.title);
+	const title = req.body.title;
+	const imageUrl = req.body.imageUrl;
+	const price = req.body.price;
+	const description = req.body.description;
+  const newProduct = new Product(title, imageUrl, price, description);
   newProduct.save();
   res.redirect("/");
 };
 
-exports.getShopPage = (req, res) => {
-  // res.sendFile(path.join(__dirname, "../views/shop.html"));
+exports.getProductsPage = (req, res) => {
   Product.fetchAll((products) => {
-    res.render("shop", {
+    res.render("admin/product-list", {
       prods: products,
-      pageTitle: "Shop",
-      path: "/",
+      pageTitle: "Admin Products",
+      path: "/admin/products",
     });
   });
-};
+}
